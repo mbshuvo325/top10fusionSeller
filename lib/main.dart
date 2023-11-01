@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_value/shared_value.dart';
 import 'package:toast/toast.dart';
 import 'app_config.dart';
+import 'keyPage.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +59,16 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     setShareValue();
     super.initState();
+  }
+
+  getData() async {
+    final status = await AddonsHelper().setAddonsData();
+    if(status == false){
+      Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) {
+          return KeyPage();
+        },),(route)=>false,);
+    }
   }
 
   @override
